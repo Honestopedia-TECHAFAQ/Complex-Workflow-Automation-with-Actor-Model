@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  master_project:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sub_project1
+      - sub_project2
+    networks:
+      - workflow_network
+
+  sub_project1:
+    build:
+      context: ./sub_project1
+    ports:
+      - "5001:5001"
+    networks:
+      - workflow_network
+
+  sub_project2:
+    build:
+      context: ./sub_project2
+    ports:
+      - "5002:5002"
+    networks:
+      - workflow_network
+
+networks:
+  workflow_network:
+    driver: bridge
